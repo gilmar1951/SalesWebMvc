@@ -10,6 +10,8 @@ namespace SalesWebMvc.Controllers
 {
     public class HomeController : Controller
     {
+        public SellersController _sellersController;
+
         public IActionResult Index()
         {
             return View();
