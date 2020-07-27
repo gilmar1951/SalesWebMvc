@@ -17,6 +17,18 @@ namespace SalesWebMvc.Services
             _context = context;
         }
 
+        public async Task<List<SalesRecord>> FindAllAsync()
+        {
+            return await _context.SalesRecord.Include(obj => obj.Seller).ToListAsync();
+        }
+
+        public async Task InsertAsync(SalesRecord salesRecord)
+        {
+            _context.Add(salesRecord);
+            await _context.SaveChangesAsync();
+
+        }
+
         public async Task<List<SalesRecord>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
         {
             var result = from obj in _context.SalesRecord select obj;
