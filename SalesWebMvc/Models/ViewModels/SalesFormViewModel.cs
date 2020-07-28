@@ -10,6 +10,5 @@ namespace SalesWebMvc.Models.ViewModels
     {
         public SalesRecord SalesRecord { get; set; }
         public ICollection<Seller> Sellers { get; set; }
-        public SaleStatus SaleStatus { get; set; }
     }
 }

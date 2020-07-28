@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SalesWebMvc.Data;
 using SalesWebMvc.Models;
+using SalesWebMvc.Services.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,42 @@ namespace SalesWebMvc.Services
         public async Task<List<SalesRecord>> FindAllAsync()
         {
             return await _context.SalesRecord.Include(obj => obj.Seller).ToListAsync();
+        }
+
+        public async Task<SalesRecord> FindByIdAsync(int id)
+        {
+            return await _context.SalesRecord.Include(obj => obj.Seller).FirstOrDefaultAsync(obj => obj.Id == id);
+        }
+
+        public async Task UpdateAsync(SalesRecord obj)
+        {
+            if (!await _context.SalesRecord.AnyAsync(x => x.Id == obj.Id))
+            {
+                throw new NotFoundException("I");
+            }
+            try
+            {
+                _context.Update(obj);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
+        }
+
+        public async Task RemoveAsync(int id)
+        {
+            try
+            {
+                var obj = await _context.SalesRecord.FindAsync(id);
+                _context.SalesRecord.Remove(obj);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException e)
+            {
+                throw new IntegrityException(e.Message);
+            }
         }
 
         public async Task InsertAsync(SalesRecord salesRecord)
