@@ -67,6 +67,7 @@ namespace SalesWebMvc.Controllers
                 var sellers = await _sellerService.FindAllAsync();
                 var viewModel = new SalesFormViewModel { SalesRecord = salesRecord, Sellers = sellers };
                 return View(viewModel);
+                
             }
 
             if (id != salesRecord.Id)

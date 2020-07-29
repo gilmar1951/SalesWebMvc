@@ -6,27 +6,10 @@
     <div class="col-md-3">
         <h2>Application</h2>
         <ul>
-            <li>
-                <div>
-                    <a>Departmant</a>
-                    @*<a asp-action="Records">Departmant</a>*@
-                </div>
-            </li>
-            <li>
-                <div>
-                    <a>Seller</a>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <a>Sales</a>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <a>Sales Report</a>
-                </div>
-            </li>
+            <li><a asp-area="" asp-controller="Departaments" asp-action="Index">Departmant</a></li>
+            <li><a asp-area="" asp-controller="Sellers" asp-action="Index">Seller</a></li>
+            <li><a asp-area="" asp-controller="SalesRecords" asp-action="Records">Sales</a></li>
+            <li><a asp-area="" asp-controller="SalesRecords" asp-action="Index">Sales Report</a></li>
         </ul>
     </div>
 </div>
